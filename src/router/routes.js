@@ -9,7 +9,12 @@ const routes = [
   {
     path: "/checklist",
     component: () => import("layouts/SecondLayout.vue"),
-    children: [{ path: "", component: () => import("pages/checklist.vue") }],
+    children: [{ path: "", component: () => import("src/pages/SeuChecklist.vue") }],
+  },
+  {
+    path: "/AtividadesConcluidas",
+    component: () => import("layouts/AtividadesConcluidasLayout.vue"),
+    children: [{ path: "", component: () => import("pages/AtividadesConcluidas.vue") }],
   },
 
   // Always leave this as last one,

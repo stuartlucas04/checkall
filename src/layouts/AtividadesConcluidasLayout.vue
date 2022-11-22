@@ -3,7 +3,7 @@
     <q-header class="bg-primary text-black">
       <q-toolbar>
         <q-toolbar-title class="absolute-center text-weight-bold">
-          Sua Checklist
+          Atividades Concluidas
         </q-toolbar-title>
 
       </q-toolbar>
