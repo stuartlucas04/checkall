@@ -25,6 +25,8 @@ export const taskListStore = defineStore("taskList", {
         "task_list",
         JSON.stringify([...storageTaskList, newTask])
       );
+
+      location.href = "/#/checklist";
     },
   },
 });

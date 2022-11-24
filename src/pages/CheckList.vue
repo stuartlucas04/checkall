@@ -1,6 +1,11 @@
 <template>
   <q-page class="main">
-    <div class="box">
+    <ul v-if="taskList.$state.length !== 0">
+      <li v-for="task in taskList.$state" :key="task.id">
+        {{ task.name }}
+      </li>
+    </ul>
+    <div class="box" v-else>
       <p class="text">
         Hoje está calmo, bora fazer algo produtivo para animar o dia?
       </p>
@@ -16,7 +21,7 @@
 .main {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -43,13 +48,23 @@
 .link {
   text-decoration: none;
   color: black;
+  position: fixed;
+  bottom: 60px;
 }
 </style>
 
 <script>
+import { taskListStore } from "src/stores/taskListStore";
 import { defineComponent } from "vue";
+
+const taskList = taskListStore();
 
 export default defineComponent({
   name: "CheckList",
+  setup() {
+    return {
+      taskList,
+    };
+  },
 });
 </script>
