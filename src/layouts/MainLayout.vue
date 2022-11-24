@@ -5,34 +5,22 @@
         <q-toolbar-title class="absolute-center text-weight-bold">
           Novembro
         </q-toolbar-title>
-        <div class="absolute-right"><img src="../../public/checkbox.png"></div>
       </q-toolbar>
     </q-header>
-<q-page-container>
-  <router-view />
-</q-page-container>
-
- <q-footer class="bg-secondary text-black">
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+    <q-footer class="bg-secondary text-black">
       <q-tabs inline-label>
-        <q-route-tab
-          to="/"
-          name="todo"
-          icon="event"
-          label="Calendário"
-          exact />
+        <q-route-tab to="/" name="todo" icon="event" label="Calendário" exact />
         <q-route-tab
           to="/checklist"
           name="settings"
           icon="checklist"
           label="Checklist"
-          exact />
+          exact
+        />
       </q-tabs>
     </q-footer>
-
-
-</q-layout>
+  </q-layout>
 </template>
-
-<script>
-
-</script>
