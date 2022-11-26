@@ -1,10 +1,26 @@
 <template>
-  <q-page class="main">
-    <ul v-if="taskList.$state.length !== 0">
-      <li v-for="task in taskList.$state" :key="task.id">
-        {{ task.name }}
-      </li>
-    </ul>
+  <q-page padding>
+    <q-list bordered separetor v-if="taskList.$state.length !== 0">
+      <q-item
+        class="task"
+        v-for="task in taskList.$state"
+        :key="task.id"
+        :class="task.completed ? 'bg-primary' : 'bg-accent'"
+      >
+        <q-item-section side top>
+          <q-checkbox v-model="task.completed" v-ripple />
+        </q-item-section>
+        <q-item-section>{{ task.name }}</q-item-section>
+        <q-item-section side>
+          <q-item-label caption class="text-black">{{
+            task.dueDate
+          }}</q-item-label>
+          <q-item-label caption class="text-black">{{
+            task.dueTime
+          }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
     <div class="box" v-else>
       <p class="text">
         Hoje está calmo, bora fazer algo produtivo para animar o dia?
@@ -12,7 +28,11 @@
       <img src="../../public/arvore.png" alt="" class="image" />
     </div>
     <a href="/#/checklist/new-task" class="link">
-      <q-btn class="button" icon-right="add"> Crie uma nova tarefa aqui </q-btn>
+      <div class="test">
+        <q-btn class="button teste1" icon-right="add" fixed-center>
+          Crie uma nova tarefa aqui
+        </q-btn>
+      </div>
     </a>
   </q-page>
 </template>
@@ -25,6 +45,17 @@
   flex-direction: column;
 }
 
+.teste1 {
+  position: absolute;
+  bottom: 20px;
+}
+.test {
+  display: flex;
+  justify-content: center;
+}
+.column-reverse {
+  flex-direction: column-reverse;
+}
 .box {
   text-align: center;
 }
@@ -43,12 +74,12 @@
 
 .button {
   background-color: #a1ff99;
+  padding-left: -30px;
 }
 
 .link {
   text-decoration: none;
   color: black;
-  position: fixed;
   bottom: 60px;
 }
 </style>
