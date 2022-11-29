@@ -1,63 +1,39 @@
 <template>
-  <q-page padding>
-    <q-list bordered separetor v-if="taskList.$state.length !== 0">
-      <q-item
-        class="task"
-        v-for="task in taskList.$state"
+  <HeaderArea />
+  <main>
+    <ul class="task-list flex column" v-if="taskList.$state.length !== 0">
+      <TaskBox
+        v-for="task in filterTaskList.filter()"
         :key="task.id"
-        :class="task.completed ? 'bg-primary' : 'bg-accent'"
-      >
-        <q-item-section side top>
-          <q-checkbox v-model="task.completed" v-ripple />
-        </q-item-section>
-        <q-item-section>{{ task.name }}</q-item-section>
-        <q-item-section side>
-          <q-item-label caption class="text-black">{{
-            task.dueDate
-          }}</q-item-label>
-          <q-item-label caption class="text-black">{{
-            task.dueTime
-          }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-    <div class="box" v-else>
+        :id="task.id"
+        :name="task.name"
+        :description="task.description"
+        :isCompleted="task.isCompleted"
+        :date="task.date"
+        :time="task.time"
+      />
+    </ul>
+    <div class="box flex column items-center justify-center" v-else>
       <p class="text">
         Hoje está calmo, bora fazer algo produtivo para animar o dia?
       </p>
       <img src="../../public/arvore.png" alt="" class="image" />
     </div>
-    <a href="/#/checklist/new-task" class="link">
-      <div class="test">
-        <q-btn class="button teste1" icon-right="add" fixed-center>
-          Crie uma nova tarefa aqui
-        </q-btn>
-      </div>
-    </a>
-  </q-page>
+  </main>
+  <FooterArea />
 </template>
 
 <style scoped>
-.main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.task-list {
+  padding: 0;
+  margin: 0;
+  gap: 12px;
+  padding: 80px 20px 80px;
 }
 
-.teste1 {
-  position: absolute;
-  bottom: 20px;
-}
-.test {
-  display: flex;
-  justify-content: center;
-}
-.column-reverse {
-  flex-direction: column-reverse;
-}
 .box {
-  text-align: center;
+  min-height: 100vh;
+  padding: 80px 0 80px;
 }
 
 .text {
@@ -84,18 +60,13 @@
 }
 </style>
 
-<script>
+<script setup>
 import { taskListStore } from "src/stores/taskListStore";
-import { defineComponent } from "vue";
+import HeaderArea from "components/HeaderArea.vue";
+import FooterArea from "components/FooterArea.vue";
+import TaskBox from "components/TaskBox.vue";
+import { filterTaskListStore } from "stores/filterTaskListStore";
 
+const filterTaskList = filterTaskListStore();
 const taskList = taskListStore();
-
-export default defineComponent({
-  name: "CheckList",
-  setup() {
-    return {
-      taskList,
-    };
-  },
-});
 </script>

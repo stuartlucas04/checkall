@@ -8,25 +8,49 @@ export const taskListStore = defineStore("taskList", {
   state: () => JSON.parse(localStorage.getItem("task_list") || "[]"),
   actions: {
     add() {
-      const newTask = {
-        ...task.$state,
-        id: uid(),
-      };
+      if (task.hasValidInputs()) {
+        const newTask = {
+          ...task.$state,
+          id: uid(),
+        };
 
-      console.log(this.$state);
+        this.$state.push(newTask);
 
-      this.$state.push(newTask);
+        const storageTaskList = JSON.parse(
+          localStorage.getItem("task_list") || "[]"
+        );
 
-      const storageTaskList = JSON.parse(
-        localStorage.getItem("task_list") || "[]"
-      );
+        localStorage.setItem(
+          "task_list",
+          JSON.stringify([...storageTaskList, newTask])
+        );
 
-      localStorage.setItem(
-        "task_list",
-        JSON.stringify([...storageTaskList, newTask])
-      );
+        location.href = "/#/checklist";
 
-      location.href = "/#/checklist";
+        task.$reset();
+      }
+    },
+    complete(id) {
+      const updatedTaskList = this.$state.map((task) => {
+        if (task.id === id) {
+          task.isCompleted = !task.isCompleted;
+        }
+
+        return task;
+      });
+
+      localStorage.setItem("task_list", JSON.stringify(updatedTaskList));
+    },
+    delete(id) {
+      this.$state.filter((task) => {
+        if (task.id === id) {
+          const index = this.$state.indexOf(task);
+
+          this.$state.splice(index, 1);
+        }
+      });
+
+      localStorage.setItem("task_list", JSON.stringify(this.$state));
     },
   },
 });

@@ -1,12 +1,6 @@
 const routes = [
-  {
-    path: "/",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [
-      { path: "/", component: () => import("pages/CalendarioArea.vue") },
-      { path: "/checklist", component: () => import("pages/CheckList.vue") },
-    ],
-  },
+  { path: "/calendar", component: () => import("src/pages/CalendarArea.vue") },
+  { path: "/checklist", component: () => import("pages/CheckList.vue") },
   {
     path: "/checklist/new-task",
     component: () => import("pages/AddTaskForm.vue"),
